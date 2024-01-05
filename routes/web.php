@@ -74,3 +74,5 @@ Route::post('/comment',[HomeController::class,'addComment'])->name('add_comment'
 Route::post('/reply_add',[HomeController::class,'addReply'])->name('add_reply');
 
 Route::get('/product_search',[HomeController::class,'productSearch'])->name('product_search');
+
+Route::get('/all_Products',[HomeController::class,'allProduct'])->name('all.product');

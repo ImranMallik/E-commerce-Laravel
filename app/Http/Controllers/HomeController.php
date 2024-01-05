@@ -18,8 +18,9 @@ class HomeController extends Controller
     //
     public function index()
     {
-        $product = Product::paginate(6);
-        $comment = Comment::all();
+        $product = Product::paginate(10);
+        
+        $comment = Comment::orderby('id','desc')->get();
         $reply=Reply::all();
         return view('home.index', compact('product','comment','reply'));
     }
@@ -250,6 +251,21 @@ class HomeController extends Controller
 
     public function productSearch(Request $request){
          $search_text = $request->search;
-        $product = Product::where()
+        $comment = Comment::orderby('id', 'desc')->get();
+        $reply = Reply::all();
+        $product = Product::where('title','LIKE', "%$search_text%")->orWhere('category', 'LIKE', "%$search_text%")->paginate(10);
+
+        return view('home.index',compact('product','comment','reply'));
+    }
+
+
+    public function allProduct(){
+
+        $product = Product::paginate(10);
+
+        $comment = Comment::orderby('id', 'desc')->get();
+        $reply = Reply::all();
+
+        return view('home.all_product',compact('product','comment','reply'));
     }
 }
